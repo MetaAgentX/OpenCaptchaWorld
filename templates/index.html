@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAPTCHA Puzzle Benchmark</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        /* Additional styling to ensure input field visibility */
+        .input-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+            width: 100%;
+        }
+        #user-answer {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        #submit-answer {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        #submit-answer:hover {
+            background-color: #45a049;
+        }
+        #submit-answer:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Open CaptchaWorld</h1>
+        <div id="debug-indicator" style="color: #ff5722; margin-top: -15px; margin-bottom: 10px; font-weight: bold; display: none;">
+            Debugging Mode: <span id="debug-type-display"></span>
+        </div>
+        
+        <div class="benchmark-stats">
+            <span>Total: <span id="total-count">0</span></span>
+            <span>Correct: <span id="correct-count">0</span></span>
+            <span>Accuracy: <span id="accuracy">0%</span></span>
+        </div>
+        <div class="puzzle-difficulty" style="margin-bottom: 15px;">
+            <span>Reasoning Depth:</span>
+            <div class="difficulty-stars" id="difficulty-stars"></div>
+        </div>
+        <div class="puzzle-container" id="puzzle-container">
+            <div class="puzzle-image-wrapper">
+                <div class="puzzle-image-container">
+                    <img id="puzzle-image" src="" alt="CAPTCHA Puzzle">
+                </div>
+            </div>
+            <div class="puzzle-question">
+                <h3 id="puzzle-prompt">Loading puzzle...</h3>
+                <div class="input-group">
+                    <input type="text" id="user-answer" placeholder="Your answer">
+                    <button id="submit-answer">Submit</button>
+                </div>
+                <div id="result-message" class="result-message"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Inline script for immediate star display -->
+    <script>
+        // Display placeholder stars immediately before main script loads
+        window.onload = function() {
+            const starsContainer = document.getElementById('difficulty-stars');
+            if (starsContainer) {
+                starsContainer.innerHTML = '';
+                for (let i = 0; i < 5; i++) {
+                    const star = document.createElement('span');
+                    star.className = 'star';
+                    star.innerHTML = i < 3 ? '★' : '☆'; // Default to 3 stars
+                    starsContainer.appendChild(star);
+                }
+            }
+        };
+    </script>
+    
+    <script src="/static/js/script.js"></script>
+</body>
+</html> 
