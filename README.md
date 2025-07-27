@@ -26,7 +26,7 @@ Based on our research paper: **"Open CaptchaWorld: A Comprehensive Web-based Pla
 
 ## 📰 News
 
-* [2025-07-28] ✅ The number of captchas has been doubled in Open CaptchaWorld Benchmark, there are a total of 463 modern captchas for agents now!!!
+* [2025-07-28] ✅ The number of captchas has been doubled in Open CaptchaWorld Benchmark, there are a total of 463 modern captchas for agents now!!! You can download the new data here: https://huggingface.co/datasets/OpenCaptchaWorld/Open_CaptchaWorld 
 * [2025-05-29] ✅ We have released the first version of <span style="color:#00ffff; font-weight:bold;">**Open CaptchaWorld**</span> Benchmark and Dataset.
 
 ## 📋 Table of Contents
