@@ -26,6 +26,7 @@ Based on our research paper: **"Open CaptchaWorld: A Comprehensive Web-based Pla
 
 ## 📰 News
 
+* [2025-07-28] ✅ The number of captchas has been doubled in Open CaptchaWorld Benchmark
 * [2025-05-29] ✅ We have released the first version of <span style="color:#00ffff; font-weight:bold;">**Open CaptchaWorld**</span> Benchmark and Dataset.
 
 ## 📋 Table of Contents
@@ -224,7 +225,7 @@ We're continuously working to improve Open CaptchaWorld. Here's what's on our fu
 - [x] Web Interface for Open CaptchaWorld
 - [x] Make Open CaptchaWorld More easy to use, can just deploy locally and add address to prompt
 - [x] Scale Up the Numbers of Captchas to Double Size
-- [ ] Increase the number of puzzles in each CAPTCHA type to ensure comprehensive testing
+- [x] Increase the number of puzzles in each CAPTCHA type to ensure comprehensive testing
 - [ ] Explore parametric approaches for CAPTCHA-solving agents
 - [ ] Investigate non-parametric methods for solving complex visual puzzles
 
