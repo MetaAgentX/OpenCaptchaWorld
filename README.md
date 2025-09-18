@@ -25,7 +25,7 @@ Based on our research paper: **"Open CaptchaWorld: A Comprehensive Web-based Pla
 </div>
 
 ## 📰 News
-
+* [2025-09-18] ✅ Open CaptchaWorld has been accepted by NeurIPS 2025 Datasets and Benchmarks Track, many thanks to all the authors' contributions!!!
 * [2025-07-28] ✅ The number of captchas has been doubled in Open CaptchaWorld Benchmark, there are a total of 463 modern captchas for agents now!!! 
 * [2025-05-29] ✅ We have released the first version of <span style="color:#00ffff; font-weight:bold;">**Open CaptchaWorld**</span> Benchmark and Dataset.
 
