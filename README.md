@@ -6,8 +6,8 @@
 <div align="center">
 
 [![Arxiv](https://img.shields.io/badge/📃-Arxiv-red)](https://arxiv.org/abs/2505.24878)
-[![Open In Spaces](https://img.shields.io/badge/🤗-Open%20In%20Spaces-blue)](https://huggingface.co/spaces/YaxinLuo/Open_CaptchaWorld)
-[![Dataset](https://img.shields.io/badge/%F0%9F%93%A6-dataset-orange)](https://huggingface.co/datasets/YaxinLuo/Open_CaptchaWorld)
+[![Open In Spaces](https://img.shields.io/badge/🤗-Open%20In%20Spaces-blue)](https://huggingface.co/spaces/OpenCaptchaWorld/Open_CaptchaWorld)
+[![Dataset](https://img.shields.io/badge/%F0%9F%93%A6-dataset-orange)](https://huggingface.co/datasets/OpenCaptchaWorld/Open_CaptchaWorld)
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-orange)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/release/python-3100/)
@@ -25,6 +25,7 @@ Based on our research paper: **"Open CaptchaWorld: A Comprehensive Web-based Pla
 </div>
 
 ## 📰 News
+* [2025-09-27] ✅ We doubled the size of the captchas, you can download them here: https://huggingface.co/datasets/OpenCaptchaWorld/Open_CaptchaWorld 
 * [2025-09-18] ✅ Open CaptchaWorld has been accepted by NeurIPS 2025 Datasets and Benchmarks Track, many thanks to all the authors' contributions!!!
 * [2025-07-28] ✅ The number of captchas has been doubled in Open CaptchaWorld Benchmark, there are a total of 463 modern captchas for agents now!!! 
 * [2025-05-29] ✅ We have released the first version of <span style="color:#00ffff; font-weight:bold;">**Open CaptchaWorld**</span> Benchmark and Dataset.
