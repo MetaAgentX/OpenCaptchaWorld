@@ -112,9 +112,6 @@ By making Open CaptchaWorld available to the research community, we aim to accel
 ```
 Open CaptchaWorld/
 ├── app.py                    # Main Flask application
-├── manage_captchas.py        # CLI tool for managing CAPTCHA data
-├── rotate_images.py          # Utility for generating rotated images
-├── benchmark_results.json    # Record of benchmark results
 ├── requirements.txt          # Python dependencies
 ├── README.md                 # Project documentation
 ├── captcha_data/             # Directory containing CAPTCHA types and puzzles
@@ -196,7 +193,7 @@ This data can be used to analyze performance across different puzzle types and t
    ```bash
    pip install -r requirements.txt
    ```
-
+4. Download the data from : https://huggingface.co/datasets/OpenCaptchaWorld/Open_CaptchaWorld, mkae them as captcha_data/ folder     
 ### Running the Application
 
 Start the Flask application:
