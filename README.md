@@ -6,9 +6,9 @@
 <div align="center">
 
 [![Arxiv](https://img.shields.io/badge/📃-Arxiv-red)](https://arxiv.org/abs/2505.24878)
-[![Open In Spaces](https://img.shields.io/badge/🤗-Open%20In%20Spaces-blue)](https://huggingface.co/spaces/OpenCaptchaWorld/Open_CaptchaWorld)
+[![Open In Spaces](https://img.shields.io/badge/🤗-Open%20In%20Spaces-blue)](https://huggingface.co/spaces/OpenCaptchaWorld/platform)
 [![Dataset](https://img.shields.io/badge/%F0%9F%93%A6-dataset-orange)](https://huggingface.co/datasets/OpenCaptchaWorld/Open_CaptchaWorld)
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.5.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-orange)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/downloads/release/python-3100/)
 
@@ -151,7 +151,7 @@ Open CaptchaWorld includes 20 distinct CAPTCHA types, each testing different vis
 16. **Connect_icon**: Connect matching icons
 17. **Click_Order**: Click items in a specific sequence
 18. **Hold_Button**: Hold a button for a specified duration
-19. **Misleading_Click**: Click in the correct area avoiding distractions
+19. **Misleading_Click**: Click in the correct area, avoiding distractions
 20. **Pick_Area**: Select a specific area in an image
 
 Each type has its own directory in `captcha_data/` containing puzzle images and a `ground_truth.json` file with solutions.
@@ -193,7 +193,7 @@ This data can be used to analyze performance across different puzzle types and t
    ```bash
    pip install -r requirements.txt
    ```
-4. Download the data from : https://huggingface.co/datasets/OpenCaptchaWorld/Open_CaptchaWorld, mkae them as captcha_data/ folder     
+4. You can just git clone, the data is already in captcha_data/, Or download the data from: https://huggingface.co/datasets/OpenCaptchaWorld/Open_CaptchaWorld, mkae them as captcha_data/ folder     
 ### Running the Application
 
 Start the Flask application:
