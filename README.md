@@ -120,6 +120,21 @@ The CLI launches a `browser-use` agent and asks it to solve puzzles directly in 
 
 > Tip: Provide provider API keys through environment variables (`BROWSER_USE_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, etc.) before running the CLI. Or for more convient, set up all in .env.example file once, then you are free to go.
 
+### 🤖 CrewAI CLI (agent framework option)
+
+Prefer orchestrating agents with CrewAI? Install the optional dependencies and launch the dedicated CLI:
+
+```bash
+pip install crewai "crewai-tools[playwright]" langchain-openai
+
+python -m agent_frameworks.crewai_cli --url http://127.0.0.1:5000 --limit 3 --provider openai --model gpt-4o-mini
+```
+
+- Switch providers with `--provider` (`openai`, `anthropic`, `google`, `groq`, `azure-openai`) and pass `--model` to target a specific checkpoint when required.
+- CrewAI relies on LangChain provider packages (e.g. `langchain-anthropic`, `langchain-google-genai`, `langchain-groq`) and expects the appropriate API keys in your environment (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY`, `GROQ_API_KEY`, etc.).
+- Install `crewai-tools[playwright]` to enable the bundled `BrowserTool`, which lets the Crew interact with the OpenCaptchaWorld page.
+- **Notice: when we conducted our experiments, CrewAI (and the LangChain stack it sits on) still depends on Pydantic v1, which isn’t compatible with Python 3.14+. You may need to create a new virtual env with Python 3.12.**
+
 ## 🏗 Project Structure
 
 

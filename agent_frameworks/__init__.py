@@ -1,10 +1,11 @@
 """
-OpenCaptchaWorld agent helpers built on top of browser-use.
-
-This package currently exposes a minimal CLI that instructs a browser-use
-agent to open an OpenCaptchaWorld deployment and attempt the puzzles.
+Agent framework entry points for running OpenCaptchaWorld benchmarks.
 """
 
-from .browseruse_cli import main  # noqa: F401
+from .browseruse_cli import main as browseruse_main  # noqa: F401
+from .crewai_cli import main as crewai_main  # noqa: F401
 
-__all__ = ["main"]
+# Maintain backward compatibility: default `main` points to the browser-use CLI.
+main = browseruse_main
+
+__all__ = ["browseruse_main", "crewai_main", "main"]
