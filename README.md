@@ -25,6 +25,7 @@ Based on our research paper: **"Open CaptchaWorld: A Comprehensive Web-based Pla
 </div>
 
 ## 📰 News
+* [2025-10-20] ✅ We implement and upload the testing cli for browser-use framework, it is easy to use and you can test any MLLMs on OpenCapthaWorld by just swtiching the backbones. (See guidance below)
 * [2025-09-27] ✅ We doubled the size of the captchas, you can download them here: https://huggingface.co/datasets/OpenCaptchaWorld/Open_CaptchaWorld 
 * [2025-09-18] ✅ Open CaptchaWorld has been accepted by NeurIPS 2025 Datasets and Benchmarks Track, many thanks to all the authors' contributions!!!
 * [2025-07-28] ✅ The number of captchas has been doubled in Open CaptchaWorld Benchmark, there are a total of 463 modern captchas for agents now!!! 
@@ -105,6 +106,19 @@ By making Open CaptchaWorld available to the research community, we aim to accel
 - **Benchmark Tracking**: Automatic recording of performance metrics
 - **CLI Management**: Tools for managing CAPTCHA puzzles and types
 - **Extensible Architecture**: Easy addition of new puzzle types
+
+## 🧪 Benchmark CLI (New)
+
+To make it easy to experiment with different multimodal LLM backbones, the repository now ships with an agent-friendly CLI built on top of the bundled `browser-use` framework.
+
+```bash
+# Activate your environment, install browser-use, and ensure Playwright/Chromium is available
+python -m ocw_agent.cli --url http://127.0.0.1:5000 --llm browser-use --limit 5
+```
+
+The CLI launches a `browser-use` agent and asks it to solve puzzles directly in the running web UI. Switch providers with `--llm` (supported values: `browser-use`, `openai`, `anthropic`, `google`, `groq`, `azure-openai`) and pass `--model` when a backend needs an explicit checkpoint (for example `--llm openai --model gpt-4.1`). Use `--use-cloud` to run against Browser Use Cloud or `--headless` for local headless testing.
+
+> Tip: Provide provider API keys through environment variables (`BROWSER_USE_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, etc.) before running the CLI.
 
 ## 🏗 Project Structure
 
@@ -200,7 +214,6 @@ Start the Flask application:
 ```bash
 python app.py
 ```
-
 The application will be available at: `http://10.14.0.2:7860/`
 
 ## 📝 Usage

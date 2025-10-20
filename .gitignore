@@ -4,3 +4,4 @@ captcha_detailed_distribution.png
 captcha_distribution.png
 captcha_legend.png
 /visualization/
+__pycache__
