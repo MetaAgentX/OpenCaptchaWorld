@@ -113,7 +113,7 @@ To make it easy to experiment with different multimodal LLM backbones, the repos
 
 ```bash
 # Activate your environment, install browser-use, and ensure Playwright/Chromium is available
-python -m ocw_agent.cli --url http://10.127.49.104:7860 (or any address you wish to use) --llm browser-use --limit 5
+python -m agent_frameworks.browseruse_cli --url http://10.127.49.104:7860 (or any address you wish to use) --llm browser-use --limit 5
 ```
 
 The CLI launches a `browser-use` agent and asks it to solve puzzles directly in the running web UI. Switch providers with `--llm` (supported values: `browser-use`, `openai`, `anthropic`, `google`, `groq`, `azure-openai`) and pass `--model` when a backend needs an explicit checkpoint (for example `--llm openai --model gpt-4.1`). Use `--use-cloud` to run against Browser Use Cloud or `--headless` for local headless testing.
