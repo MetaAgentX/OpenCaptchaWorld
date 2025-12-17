@@ -211,7 +211,7 @@ async def _run_agent(args: argparse.Namespace) -> int:
 def _build_parser() -> argparse.ArgumentParser:
 	parser = argparse.ArgumentParser(description='Run a browser-use agent on Open CaptchaWorld puzzles.')
 	llm_choices = sorted(_create_llm_factory().keys())
-	parser.add_argument('--url', default='http://127.0.0.1:5000', help='URL of the running OpenCaptchaWorld instance.')
+	parser.add_argument('--url', default='http://127.0.0.1:7860', help='URL of the running OpenCaptchaWorld instance.')
 	parser.add_argument('--limit', type=int, default=265, help='Number of puzzle attempts before the agent stops.')
 	parser.add_argument(
 		'--llm',

@@ -5,3 +5,5 @@ captcha_distribution.png
 captcha_legend.png
 /visualization/
 __pycache__
+*.log
+*.env
