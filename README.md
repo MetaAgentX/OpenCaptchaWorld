@@ -229,7 +229,7 @@ Start the Flask application:
 ```bash
 python app.py
 ```
-The application will be available at: `http://10.14.0.2:7860/`
+The application will be available at: `http://127.0.0.1:7860`
 
 ## 📝 Usage
 
