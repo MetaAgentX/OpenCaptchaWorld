@@ -7,3 +7,4 @@ captcha_legend.png
 __pycache__
 *.log
 *.env
+benchmark_results.json
