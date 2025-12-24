@@ -1048,6 +1048,4 @@ if __name__ == '__main__':
     if os.environ.get('DEVELOPMENT'):
         app.run(debug=True)
     else:
-        # For production on Hugging Face Spaces
-        import config
-        app.run(host=config.HOST, port=config.PORT) 
+        app.run(host='0.0.0.0', port=7860) 
