@@ -107,34 +107,6 @@ By making Open CaptchaWorld available to the research community, we aim to accel
 - **CLI Management**: Tools for managing CAPTCHA puzzles and types
 - **Extensible Architecture**: Easy addition of new puzzle types
 
-## 🧪 Benchmark CLI (New)
-
-To make it easy to experiment with different multimodal LLM backbones, the repository now ships with an agent-friendly CLI built on top of the bundled `browser-use` framework.
-
-```bash
-# Activate your environment, install browser-use, and ensure Playwright/Chromium is available
-python -m agent_frameworks.browseruse_cli --url http://127.0.0.1:7860 (or any address you wish to use) --llm browser-use --limit 5
-```
-
-The CLI launches a `browser-use` agent and asks it to solve puzzles directly in the running web UI. Switch providers with `--llm` (supported values: `browser-use`, `openai`, `anthropic`, `google`, `groq`, `azure-openai`) and pass `--model` when a backend needs an explicit checkpoint (for example `--llm openai --model gpt-4.1`). Use `--use-cloud` to run against Browser Use Cloud or `--headless` for local headless testing.
-
-> Tip: Provide provider API keys through environment variables (`BROWSER_USE_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, etc.) before running the CLI. Or for more convient, set up all in .env.example file once, then you are free to go.
-
-### 🤖 CrewAI CLI (agent framework option)
-
-Prefer orchestrating agents with CrewAI? Install the optional dependencies and launch the dedicated CLI:
-
-```bash
-pip install crewai "crewai-tools[playwright]" langchain-openai
-
-python -m agent_frameworks.crewai_cli --url http://127.0.0.1:7860 --limit 3 --provider openai --model gpt-4o-mini
-```
-
-- Switch providers with `--provider` (`openai`, `anthropic`, `google`, `groq`, `azure-openai`) and pass `--model` to target a specific checkpoint when required.
-- CrewAI relies on LangChain provider packages (e.g. `langchain-anthropic`, `langchain-google-genai`, `langchain-groq`) and expects the appropriate API keys in your environment (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY`, `GROQ_API_KEY`, etc.).
-- Install `crewai-tools[playwright]` to enable the bundled `BrowserTool`, which lets the Crew interact with the OpenCaptchaWorld page.
-- **Notice: when we conducted our experiments, CrewAI (and the LangChain stack it sits on) still depends on Pydantic v1, which isn’t compatible with Python 3.14+. You may need to create a new virtual env with Python 3.12.**
-
 ## 🏗 Project Structure
 
 
@@ -214,20 +186,21 @@ This data can be used to analyze performance across different puzzle types and t
 
 2. Create a virtual environment (optional but recommended):
    ```bash
-   python -m venv .venv
+   uv venv 
    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
    ```
 
 3. Install dependencies:
    ```bash
-   pip install -r requirements.txt
+   uv pip install -r requirements.txt
+   uv run playwright install
    ```
 4. You can just git clone, the data is already in captcha_data/, Or download the data from: https://huggingface.co/datasets/OpenCaptchaWorld/Open_CaptchaWorld, mkae them as captcha_data/ folder     
 ### Running the Application
 
 Start the Flask application:
 ```bash
-python app.py
+uv run app.py
 ```
 The application will be available at: `http://127.0.0.1:7860`
 
@@ -242,6 +215,39 @@ The web interface allows interaction with the CAPTCHA puzzles:
 3. Add the server address to your agent's prompt
 4. Aha! Just need to wait for your agents to solve the puzzles
 
+
+## 🧪 Benchmark CLI (New)
+
+To make it easy to experiment with different multimodal LLM backbones, the repository now ships with an agent-friendly CLI built on top of the bundled `browser-use` framework.
+
+```bash
+# Activate your environment, install browser-use, and ensure Playwright/Chromium is available
+python -m agent_frameworks.browseruse_cli --url http://127.0.0.1:7860 (or any address you wish to use) --llm browser-use --limit 20
+```
+
+```bash
+# Or if you want to use model provider other than browser-use, here is an example for Google and Gemini-3-flash
+python -m agent_frameworks.browseruse_cli --url http://127.0.0.1:7860  --model gemini-3-flash-preview --llm google --limit 20
+```
+
+The CLI launches a `browser-use` agent and asks it to solve puzzles directly in the running web UI. Switch providers with `--llm` (supported values: `browser-use`, `openai`, `anthropic`, `google`, `groq`, `azure-openai`) and pass `--model` when a backend needs an explicit checkpoint (for example `--llm openai --model gpt-4.1`). Use `--use-cloud` to run against Browser Use Cloud or `--headless` for local headless testing.
+
+> Tip: Provide provider API keys through environment variables (`BROWSER_USE_API_KEY`, `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, etc.) before running the CLI. Or for more convient, set up all in .env.example file once, then you are free to go.
+
+### 🤖 CrewAI CLI (agent framework option)
+
+Prefer orchestrating agents with CrewAI? Install the optional dependencies and launch the dedicated CLI:
+
+```bash
+pip install crewai "crewai-tools[playwright]" langchain-openai
+
+python -m agent_frameworks.crewai_cli --url http://127.0.0.1:7860 --limit 3 --provider openai --model gpt-4o-mini
+```
+
+- Switch providers with `--provider` (`openai`, `anthropic`, `google`, `groq`, `azure-openai`) and pass `--model` to target a specific checkpoint when required.
+- CrewAI relies on LangChain provider packages (e.g. `langchain-anthropic`, `langchain-google-genai`, `langchain-groq`) and expects the appropriate API keys in your environment (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY`, `GROQ_API_KEY`, etc.).
+- Install `crewai-tools[playwright]` to enable the bundled `BrowserTool`, which lets the Crew interact with the OpenCaptchaWorld page.
+- **Notice: when we conducted our experiments, CrewAI (and the LangChain stack it sits on) still depends on Pydantic v1, which isn’t compatible with Python 3.14+. You may need to create a new virtual env with Python 3.12.**
 
 ## 🗺️ Future Plan
 
