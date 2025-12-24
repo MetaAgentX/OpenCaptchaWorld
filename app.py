@@ -3,9 +3,51 @@ import json
 import random
 from flask import Flask, render_template, request, jsonify, send_from_directory
 
+# Set random seed for reproducible puzzle selection across runs
+random.seed(0)
+
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
-# Dictionary to track which puzzles have been shown for each CAPTCHA type
+# Pre-generate puzzle sequences at startup
+PUZZLE_SEQUENCES = {}  # {type: [puzzle1, puzzle2, ...]}
+PUZZLE_INDEX = {}      # {type: current_index}
+
+def pregenerate_sequences():
+    base_dir = 'captcha_data'
+    if not os.path.exists(base_dir):
+        return
+
+    for ctype in os.listdir(base_dir):
+        if not os.path.isdir(os.path.join(base_dir, ctype)):
+            continue
+
+        path = os.path.join(base_dir, ctype, 'ground_truth.json')
+        try:
+            with open(path, 'r') as f:
+                gt = json.load(f)
+        except:
+            continue
+
+        # Generate sequence with fresh seed per type
+        rng = random.Random(0)
+        puzzle_files = list(gt.keys())
+        sequence = []
+        seen = set()
+
+        for _ in range(len(puzzle_files)):
+            unseen = [p for p in puzzle_files if p not in seen]
+            if not unseen:
+                break
+            selected = rng.choice(unseen)
+            seen.add(selected)
+            sequence.append(selected)
+
+        PUZZLE_SEQUENCES[ctype] = sequence
+        PUZZLE_INDEX[ctype] = 0
+
+pregenerate_sequences()
+
+# Legacy tracking (kept for compatibility)
 seen_puzzles = {}
 # List to track recently used CAPTCHA types to avoid repetition
 recent_types = []
@@ -14,7 +56,7 @@ MAX_RECENT_TYPES = 5
 
 PUZZLE_TYPE_SEQUENCE = [
     'Dice_Count',
-    'Geometry_Click',
+     'Geometry_Click',
     'Rotation_Match',
     'Slide_Puzzle',
     'Unusual_Detection',
@@ -69,23 +111,8 @@ def serve_captcha_subdir(captcha_type, subdir, filename):
 def get_puzzle():
     global recent_types
     
-    # Get parameters
+    # Check if we should return a random puzzle from any type
     is_random = request.args.get('random', 'false').lower() == 'true'
-    # Set default seed to 0 for reproducible testing
-    seed = request.args.get('seed', 0)
-    try:
-        seed = int(seed)
-    except (ValueError, TypeError):
-        pass # Keep as string if not an integer
-        
-    limit = request.args.get('limit', 10, type=int)
-    puzzle_index = request.args.get('puzzle_index', type=int)
-    
-    # Initialize random number generator
-    if seed is not None:
-        rng = random.Random(seed)
-    else:
-        rng = random
     
     # Get all available CAPTCHA types
     captcha_types = get_captcha_types()
@@ -99,29 +126,25 @@ def get_puzzle():
 
     if debug_type and debug_type in captcha_types:
         puzzle_type = debug_type
-    elif not is_random and mode == 'sequential' and seed is None:
+    elif not is_random and mode == 'sequential':
         global sequential_index
         puzzle_type = PUZZLE_TYPE_SEQUENCE[sequential_index % len(PUZZLE_TYPE_SEQUENCE)]
         sequential_index += 1
     elif is_random:
-        if seed is not None:
-            # Deterministic type selection
-            puzzle_type = rng.choice(captcha_types)
-        else:
-            # Select a random CAPTCHA type, avoiding recently used types if possible
-            available_types = [t for t in captcha_types if t not in recent_types]
-            
-            # If all types have been used recently, reset the tracking
-            if not available_types:
-                recent_types = []
-                available_types = captcha_types
-            
-            puzzle_type = rng.choice(available_types)
-            
-            # Add to recent types and maintain maximum length
-            recent_types.append(puzzle_type)
-            if len(recent_types) > MAX_RECENT_TYPES:
-                recent_types.pop(0)
+        # Select a random CAPTCHA type, avoiding recently used types if possible
+        available_types = [t for t in captcha_types if t not in recent_types]
+        
+        # If all types have been used recently, reset the tracking
+        if not available_types:
+            recent_types = []
+            available_types = captcha_types
+        
+        puzzle_type = random.choice(available_types)
+        
+        # Add to recent types and maintain maximum length
+        recent_types.append(puzzle_type)
+        if len(recent_types) > MAX_RECENT_TYPES:
+            recent_types.pop(0)
     else:
         # Get puzzle type from query parameter
         puzzle_type = request.args.get('type', 'Dice_Count')
@@ -134,43 +157,14 @@ def get_puzzle():
     if not ground_truth:
         return jsonify({'error': f'No puzzles found for type: {puzzle_type}'}), 404
     
-    # Get puzzle files - sort first to ensure stability for seeded random
-    puzzle_files = sorted(list(ground_truth.keys()))
-    
-    if seed is not None:
-        # Shuffle using the seeded rng
-        rng.shuffle(puzzle_files)
-        
-        # Limit to the requested number of puzzles
-        puzzle_files = puzzle_files[:limit]
-        
-        if not puzzle_files:
-             return jsonify({'error': f'No puzzles available'}), 404
-             
-        if puzzle_index is not None:
-            # Select specific index from the shuffled, limited set
-            selected_puzzle = puzzle_files[puzzle_index % len(puzzle_files)]
-        else:
-            # Random choice from the limited set (consistent for same seed)
-            selected_puzzle = rng.choice(puzzle_files)
-    else:
-        # Select a random puzzle, avoiding repetition if possible
-        if puzzle_type not in seen_puzzles:
-            seen_puzzles[puzzle_type] = set()
-        
-        # Get unseen puzzles
-        unseen_puzzles = [p for p in puzzle_files if p not in seen_puzzles[puzzle_type]]
-        
-        # If all puzzles have been seen, reset the tracking
-        if not unseen_puzzles:
-            seen_puzzles[puzzle_type] = set()
-            unseen_puzzles = puzzle_files
-        
-        # Select a random puzzle from unseen ones
-        selected_puzzle = random.choice(unseen_puzzles)
-        
-        # Mark this puzzle as seen
-        seen_puzzles[puzzle_type].add(selected_puzzle)
+    # Use predetermined sequence
+    idx = PUZZLE_INDEX.get(puzzle_type, 0)
+    sequence = PUZZLE_SEQUENCES.get(puzzle_type, list(ground_truth.keys()))
+    selected_puzzle = sequence[idx % len(sequence)]
+    PUZZLE_INDEX[puzzle_type] = idx + 1
+
+    # Print to terminal
+    print(f"[{puzzle_type}] idx={idx} puzzle={selected_puzzle}")
     
     # Get the appropriate question prompt based on puzzle type
     if puzzle_type == "Dice_Count":
@@ -1033,7 +1027,8 @@ def record_benchmark():
     # You could store this in a log file as well
     with open('benchmark_results.json', 'a') as f:
         f.write(json.dumps(data) + '\n')
-    
+        f.flush()  # Ensure data is written immediately
+
     return jsonify({'status': 'success'})
 
 @app.route('/api/types', methods=['GET'])
@@ -1048,4 +1043,5 @@ if __name__ == '__main__':
     if os.environ.get('DEVELOPMENT'):
         app.run(debug=True)
     else:
+        # For production on Hugging Face Spaces
         app.run(host='0.0.0.0', port=7860) 
