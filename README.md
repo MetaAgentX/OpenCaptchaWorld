@@ -193,6 +193,7 @@ This data can be used to analyze performance across different puzzle types and t
 3. Install dependencies:
    ```bash
    uv pip install -r requirements.txt
+   uv run playwright install-deps # In case your machine miss this playwright deps
    uv run playwright install
    ```
 4. You can just git clone, the data is already in captcha_data/, Or download the data from: https://huggingface.co/datasets/OpenCaptchaWorld/Open_CaptchaWorld, mkae them as captcha_data/ folder     
