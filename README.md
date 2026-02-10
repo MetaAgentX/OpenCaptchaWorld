@@ -6,6 +6,7 @@
 <div align="center">
 
 [![Arxiv](https://img.shields.io/badge/📃-Arxiv-red)](https://arxiv.org/abs/2505.24878)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/MetaAgentX/OpenCaptchaWorld)
 [![Open In Spaces](https://img.shields.io/badge/🤗-Open%20In%20Spaces-blue)](https://huggingface.co/spaces/OpenCaptchaWorld/platform)
 [![Dataset](https://img.shields.io/badge/%F0%9F%93%A6-dataset-orange)](https://huggingface.co/datasets/OpenCaptchaWorld/Open_CaptchaWorld)
 ![Version](https://img.shields.io/badge/version-1.5.0-blue)
