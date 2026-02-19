@@ -26,6 +26,7 @@ Based on our research paper: **"Open CaptchaWorld: A Comprehensive Web-based Pla
 </div>
 
 ## 📰 News
+* [2026-02-19] 🚀 We release NextGen-CAPTCHAs: A defense framework against MLLM-based web GUI agents, with an accompanying benchmark snapshot of 519 puzzles across 27 CAPTCHA families. This repository provides both the generative CAPTCHA system and tools for evaluating agent resistance. https://github.com/MetaAgentX/NextGen-CAPTCHAs
 * [2025-10-20] ✅ We implement and upload the testing cli for browser-use framework, it is easy to use and you can test any MLLMs on OpenCapthaWorld by just swtiching the backbones. (See guidance below)
 * [2025-09-27] ✅ We doubled the size of the captchas, you can download them here: https://huggingface.co/datasets/OpenCaptchaWorld/Open_CaptchaWorld 
 * [2025-09-18] ✅ Open CaptchaWorld has been accepted by NeurIPS 2025 Datasets and Benchmarks Track, many thanks to all the authors' contributions!!!
